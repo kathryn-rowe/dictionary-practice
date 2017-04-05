@@ -61,8 +61,11 @@ def find_unique_common_items(items1, items2):
         >>> sorted(find_unique_common_items(["2", "1", 2], [2, 1]))
         [2]
     """
+    unique_item1 = set(items1)
+    unique_item2 = set(items2)
 
-    return []
+    return unique_item1 & unique_item2
+
 
 def get_sum_zero_pairs(numbers):
     """Given list of numbers, return list of pairs summing to 0.
@@ -90,8 +93,16 @@ def get_sum_zero_pairs(numbers):
         >>> sort_pairs( get_sum_zero_pairs([1, 3, -1, 1, 1, 0]) )
         [[-1, 1], [0, 0]]
     """
+    unique_numbers = set(numbers)
 
-    return []
+    sum_zero = []
+
+    for number in unique_numbers:
+        if -(number) in unique_numbers and number >= 0:
+            zero_pair = [-(number), number]
+            sum_zero.append(zero_pair)
+
+    return sum_zero
 
 
 def top_chars(phrase):
@@ -118,8 +129,21 @@ def top_chars(phrase):
     Do not count spaces, but count all other characters.
 
     """
+    count_char = {}
 
-    return []
+    for char in phrase:
+        if char != " ":
+            count_char[char] = count_char.get(char, 0) + 1
+
+    max_value = max([value for value in count_char.values()])
+
+    max_char = []
+
+    for key, value in count_char.iteritems():
+        if value == max_value:
+            max_char.append(key)
+
+    return max_char
 
 #####################################################################
 # You can ignore everything below this.
