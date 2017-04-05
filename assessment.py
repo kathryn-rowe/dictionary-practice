@@ -4,6 +4,7 @@
 dictionaries and sets.
 """
 
+
 def count_words(phrase):
     """Count unique words in a string.
 
@@ -28,8 +29,14 @@ def count_words(phrase):
         >>> print_dict(count_words("Porcupine see, porcupine do."))
         {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
     """
+    word_count = {}
 
-    return {}
+    words = phrase.split(" ")
+
+    for word in words:
+        word_count[word] = word_count.get(word, 0) + 1
+
+    return word_count
 
 
 def get_melon_price(melon_name):
@@ -53,8 +60,16 @@ def get_melon_price(melon_name):
         >>> get_melon_price('Tomato')
         'No price found'
     """
+    melon_prices = {'Watermelon': 2.95,
+                    'Cantaloupe': 2.50,
+                    'Musk': 3.25,
+                    'Christmas': 14.25}
 
-    return 0
+    for key, value in melon_prices.iteritems():
+        if melon_name == key:
+            return value
+
+    return "No price found"
 
 
 def word_length_sorted(words):
@@ -75,8 +90,25 @@ def word_length_sorted(words):
         >>> word_length_sorted(["porcupine", "ok"])
         [(2, ['ok']), (9, ['porcupine'])]
     """
+    word_length_dict = {}
 
-    return []
+    #creates dictionary to bind word length to words of that length
+    for word in words:
+        word_length = len(word)
+        if word_length not in word_length_dict:
+            word_length_dict[word_length] = []
+            word_length_dict[word_length].append(word)
+        else:
+            word_length_dict[word_length].append(word)
+
+    list_len_word_tuples = []
+
+    # Puts the key and corresponding values into tuples, and then puts in list.
+    for key, value in word_length_dict.items():
+        tuple_word = key, sorted(value)
+        list_len_word_tuples.append(tuple(tuple_word))
+
+    return sorted(list_len_word_tuples)
 
 
 def translate_to_pirate_talk(phrase):
@@ -118,7 +150,33 @@ def translate_to_pirate_talk(phrase):
         'me swabbie be not a man!'
     """
 
-    return ""
+    pirate_talk = {"sir": "matey",
+                   "hotel": "fleabag inn",
+                   "student": "swabbie",
+                   "man": "matey",
+                   "professor": "foul blaggart",
+                   "restaurant": "galley",
+                   "your": "yer",
+                   "excuse": "arr",
+                   "students": "swabbies",
+                   "are": "be",
+                   "restroom": "head",
+                   "my": "me",
+                   "is": "be"}
+
+    words = phrase.split(" ")
+
+    pirate_phrase = ""
+
+    for word in words:
+        if word in pirate_talk:
+            pirate_phrase += " " + pirate_talk[word]
+        else:
+            pirate_phrase += " " + word
+
+    pirate_phrase = pirate_phrase.lstrip()
+
+    return pirate_phrase
 
 
 def kids_game(names):
