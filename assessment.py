@@ -224,8 +224,23 @@ def kids_game(names):
     a dictionary (with the super-fast lookup they provide) can help;
     good solutions here will definitely require a dictionary.
     """
+    first_letter = {}
 
-    return []
+    for word in names:
+        first_letter[word[0]] = first_letter.get(word[0], []) + [word]
+
+    current_letter = names[0][0]
+
+    game_results = []
+
+    while True:
+        l = first_letter.get(current_letter, None)
+        if l and len(l) > 0:
+            new_word = l.pop(0)
+            game_results.append(new_word)
+            current_letter = new_word[-1]
+        else:
+            return game_results
 
 #####################################################################
 # You can ignore everything below this.
